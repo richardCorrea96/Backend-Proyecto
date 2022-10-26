@@ -10,7 +10,7 @@ const PORT = 8080;
 const server = app.listen(PORT, ()=>{
 console.log(`Server listening on port: ${PORT}`)
 })
-server.on('error', (err) => conslo.log(`Error: ${err}`))
+server.on('error', (err) => console.log(`Error: ${err}`))
 
 app.get('/', async (req, res) => {
     res.send('<h1>Entregable clase 6</h1>')
