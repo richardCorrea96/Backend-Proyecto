@@ -1,121 +1,151 @@
-/////server////
-const express = require('express')
-const {Router} = express
-const aplicacion = express()
-const port = 8080
+const fs = require('fs');
 
-const rutaProductos = Router()
-
-//carpeta public visible:
-aplicacion.use('/static', express.static(__dirname + '/public'))
-
-////////
-
-class Contenedor {
-    constructor(productos){
-        this.productos = productos
+class Contenedor{
+    constructor(archivo, id){
+        this.archivo = `./${archivo}.txt`
+        this.id =  1
     }
-    
-    save (objeto){
-        let id = 1
-        this.productos.forEach((element, index)=>{
-            if (element.id >= id){
-                id = element.id + 1
-        }
-        })
-        objeto.id = id
-        this.productos.push(objeto)
-        return id
-    }
-    getById(id){
-        let objetoSeleccionado = null
-        this.productos.forEach(element =>{
-            if (element.id == id){
-                objetoSeleccionado = element
+
+        async save(objeto){
+        try{
+            if(!fs.existsSync(this.archivo)){
+                await fs.promises.writeFile(this.archivo, JSON.stringify([
+                    {
+                        id: this.id,
+                        ...objeto
+                    }
+                ]))
+                return `Has agregado ${objeto.title} con el id ${this.id}`
+            }else{
+                const archivo = await fs.promises.readFile(this.archivo,'utf-8')
+                const json = JSON.parse(archivo)
+                if(json.length > 0){
+                    json.push({
+                        id: json.length + 1,
+                        ...objeto
+                    })
+                    await fs.promises.writeFile(this.archivo, JSON.stringify(json))
+                    return {msj: `Has agregado ${objeto.title} con el id ${json.length}`}
+                }
             }
-        })
-        return objetoSeleccionado
-    }
-    getAll(){
-        return this.productos
-    }
-    deleteById(id){
-        let indexSeleccionado = -1
-        this.productos.forEach((element, index)=>{
-            if (element.id == id){
-                indexSeleccionado = index
-            }
-        })
-        if (indexSeleccionado != -1){
-            this.productos.splice(indexSeleccionado, 1)
+        }    catch(e){
+            console.log(`Ha habido un error al leer el archivo ${this.archivo}`)
         }
-    }
-    deleteAll(){
-        this.productos = []
-    }
+        }
+
+        async getById(id){
+        try{
+            const archivo = await fs.promises.readFile(this.archivo, 'utf-8')
+            const json = JSON.parse(archivo)
+            if (json.length > 0){
+                const obj = json.find(obj => obj.id === id)
+                if (obj){
+                    return objeto
+                }else{
+                    return {error: "producto no encontrado"}
+                }
+                }
+            }catch(error){
+                console.log(error)
+            }
+        }
+
+        async getAll(){
+            try{
+                const archivo = await fs.promises.readFile(this.archivo, 'utf-8')
+                const json = JSON.parse(archivo)
+                if (json.length > 0){
+                    return json
+                }
+                console.log("Archivo vacio")
+            }catch (error){
+                console.log(error)
+            }
+        }
+
+        async deletById(id){
+            try{
+                const archivo = await fs.promises.readFile(this.archivo, 'utf-8')
+                const json = JSON.parse(archivo)
+                if(json.length > 0){
+                    const index = json.findIndex(obj => obj.id === id)
+                    if (index === -1){
+                        console.log(`El objeto no existe`)
+                    }else{
+                        json.splice(index, 1)
+                        await fs.promises.writeFile(this.archivo, JSON.stringify(json))
+                    }
+                }
+            }catch(error){
+                console.log(error)
+        }
+        }
+
+        async deleteAll(){
+        try{
+            await fs.promises.writeFile(this.archivo, "[]")
+        }catch(error){
+            console.log(error)
+        }
+        }
 }
 
+    const archivo = new Contenedor("productos")
 
-const productos = new Contenedor([])
+    const express = require('express')
+    const {Router} = express
 
-///datos de prueba
+    const app = express()
+    const router = Router()
+    
+    app.use(express.json())
+    app.use(express.urlencoded({extended: true}))
+    app.use('/api/productos', router)
+    app.use(express.static(__dirname + '/puclic'))
 
-productos.save({
-    title: 'Escuadra',
-    price: 123,
-    thumbnail: 'https://w7.pngwing.com/pngs/918/129/png-transparent-set-square-thumbnail.png'
-})
-productos.save({
-    title: 'Regla',
-    price: 456,
-    thumbnail: 'https://w7.pngwing.com/pngs/918/129/png-transparent-set-square-thumbnail.png'
-})
+    const PORT = 8080
 
-
-//////Endpoints/////
-
-rutaProductos.get('/:id',  (peticion, respuesta)=>{
-    const id = parseInt(peticion.params.id)
-    const producto = productos.getById(id)
-    if (producto){
-        respuesta.json(producto)
-    }else{
-        respuesta.status(404)
-        respuesta.json({
-            Error: 'Producto no encontrado'
+    router.get('/',(req, res)=>{ 
+        archivo.getAll().then(response =>{
+            res.json({response})
         })
-    }
-})
-rutaProductos.get('/',  (peticion, respuesta)=>{
-    const listaProductos = productos.getAll()
-    respuesta.json(listaProductos)
-})
-rutaProductos.post('/',  (peticion, respuesta)=>{
-    let producto = peticion.body
-    console.log(producto)
-    productos.save(producto)
-})
-
-rutaProductos.put('/:id',  (peticion, respuesta)=>{
-
-})
-
-rutaProductos.delete('/:id',  (peticion, respuesta)=>{
-    const id = parseInt(peticion.params.id)
-    productos.deleteById(id)
-    respuesta.json({
-        Accion: 'El producto fue eliminado'
     })
-})
 
+    router.post('/',(req, res)=>{
+        const producto = req.body
+        archivo.save(producto)
+        res.send({msj: `Agregaste el producto ${producto.title}`})
+    })
 
-aplicacion.use('/api/productos', rutaProductos)
+    router.delete('/:id',(req, res)=>{
+        const id = parseInt(req.params.id)
+        archivo.deleteById(id)
+        res.send({msj: `Eliminaste el producto con el id ${id}`})
+    })
 
-////servidor escucha/////
+    router.get('/:id',(req, res)=>{
+        const id = parseInt(req.params.id)
+        archivo.getById(id).then(response => {
+            res.send(response)
+        })
+    })
 
-const servidor = aplicacion.listen(port, ()=>{
-    console.log(`servidor escuchando: ${servidor.address().port}`)
-})
-servidor.on('error',error => console.log(`Error: ${error}`))
+    router.put('/:id', async (req, res)=>{
+        const id = parseInt(req.params.id)
+        const producto = await archivo.getById(id)
+        const productoNuevo = {
+            id: id,
+            title: req.body.title,
+            price: req.body.params,
+            thumbnail: req.body.thumbnail
+        }
+        await archivo.deleteById(id)
+        await archivo.save(productoNuevo)
+        
+        res.send({msj: `Actualizaste el producto ${producto.title}`})
+    })
 
-////////////////////////
+    const server = app.listen(PORT, ()=>{
+        console.log(`Servidor abierto en el puerto ${server.address().port}`)
+    })
+    server.on("error", error => console.log(error))

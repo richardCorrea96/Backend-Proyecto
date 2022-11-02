@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Lapiz",
+        "price": 55.00,
+        "thumbnail": "https://www.mosca.com.uy/media/catalog/product/3/2/32898.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+        "id": 2
+    },
+    {
+        "title": "Goma",
+        "price": 21.00,
+        "thumbnail:" "https://www.mosca.com.uy/media/catalog/product/2/6/26392.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+        "id": 3
+    },
+    {
+        "title": "Goma",
+        "price": 415.00,
+        "thumbnail:" "https://www.mosca.com.uy/media/catalog/product/4/8/4849385.jpg?optimize=medium&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:",
+        "id": 4
+    }
+]
