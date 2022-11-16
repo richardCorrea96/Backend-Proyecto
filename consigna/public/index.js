@@ -1,5 +1,6 @@
 const socket = io();
 
+
 function renderProducto(producto) {
   const linea = document.createElement('tr');
 
@@ -44,14 +45,18 @@ function addProduct(e) {
   socket.emit('new-product', producto);
   return false;
 }
+
+
+
 function render(data) {
   const html = data.map((elem, index) => {
-      return(`<div>
-          <strong>${elem.author}</strong>:
-          <em>${elem.text}</em> </div>`)
+      return(`<div style="color: brown">
+          <strong style="color: blue">${elem.author}</strong> [${elem.time}] :
+          <em style="color: green">${elem.text}</em> </div>`)
   }).join(" ");
   document.getElementById('messages').innerHTML = html;
 }
+
 
 socket.on('messages', function(data) { render(data); });
 
@@ -63,3 +68,4 @@ function addMessage(e) {
   socket.emit('new-message', mensaje);
   return false;
 }
+

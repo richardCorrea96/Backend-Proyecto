@@ -1,9 +1,12 @@
 //Servidor************
 const express = require('express');
+const moment = require('moment')
 const aplicacion = express();
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
 const Contenedor = require('./contenedor/contenedorFs');
+/////////////////////////////
+const Comentarios = require('./contenedor/comentariosFs')
 
 const port = 8080;
 const publicRoot = './public';
@@ -21,15 +24,9 @@ aplicacion.use(express.static(publicRoot));
 
 
 /////////////////////////////////////////////////////////////////////////////
-const messages = [
-  { author: "richard@gmail.com", text: "Buenas" },
-  { author: "nicolas@gmail.com", text: "Holis" },
-  { author: "gustavo@gmail.com", text: "Cómo están?" }
-];
+const messages = new Contenedor('./src/db/comentarios.txt');
 
-
-
-const productos = new Contenedor('./src/db/productos.txt');
+const productos = new Comentarios('./src/db/productos.txt');
 
 //Endpoints***
 
@@ -55,17 +52,23 @@ io.on('connection', async (socket) => {
 
   const listaProductos = await productos.getAll();
   socket.emit('nueva-conexion', listaProductos);
-  //////////////////////////////////////////////////////////////////////////////
-  socket.emit('messages', messages);
-//////////////////////////////////////////////////////////////////
-  socket.on('new-message',data => {
-    messages.push(data);
-    io.sockets.emit('messages', messages);
-  });
-
+  /////////////////////////////////////////////////////////
+  
   socket.on("new-product", (data) => {
     productos.save(data);
     io.sockets.emit('producto', data);
   });
+  
+   const listaComentarios = await messages.getAll();
+   socket.emit('messages', listaComentarios);
+//////////////////////////////////////////////////////////////////
+  socket.on('new-message', async data => {
+    data.time = moment(new Date()).format('DD/MM/YYYY hh:mm:ss')
+    await messages.save(data);
+    const listaComentarios = await messages.getAll();
+    io.sockets.emit('messages', listaComentarios);
+  });
+
+
 });
 //****************

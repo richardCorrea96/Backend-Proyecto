@@ -1,0 +1,23 @@
+[
+  {
+    "author": "richard@gmail.com",
+    "text": "Buenas",
+    "time": "15/11/2022 05:21:28"
+  },
+  {
+    "author": "nicolas@gmail.com",
+    "text": "Holis",
+    "time": "15/11/2022 05:21:29"
+  },
+  {
+    "author": "gustavo@gmail.com",
+    "text": "Cómo están?",
+    "time": "15/11/2022 05:21:30"
+  },
+  {
+    "author": "gerardo@gmail.com",
+    "text": "Bien, y ustedes?",
+    "time": "16/11/2022 07:43:57",
+    "id": 1
+  }
+]
