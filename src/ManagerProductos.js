@@ -54,26 +54,34 @@ export default class ProductManager {
             return product;
             } catch (error) {
             console.log(error);
-            return error;
         }
     }
 
     deleteProduct = async(id) => {
-        const data = await fs.promises.readFile(this.path, 'utf-8');
-        const products = JSON.parse(data);
-        const newProducts = products.filter(obj => obj.id !== id)
-        await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'))
-        return newProducts
+        try {
+            const data = await fs.promises.readFile(this.path, 'utf-8');
+            const products = JSON.parse(data);
+            const newProducts = products.filter(obj => obj.id !== id)
+            await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'))
+            return newProducts
+        } catch (error) {
+            console.error(error);
+        }
     }
+    
 
     getProductById = async(id) => {
-        const data = await fs.promises.readFile(this.path, 'utf-8');
-        const products = JSON.parse(data);
-        const productById = products.find(p => p.id === id);
-        if (productById){
-            return productById
-        }else{
-            return '-Not Found'
+        try {
+            const data = await fs.promises.readFile(this.path, 'utf-8');
+            const products = JSON.parse(data);
+            const productById = products.find(p => p.id === id);
+            if (productById){
+                return productById
+            }else{
+                return '-Not Found'
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
     updateProduct = async (id, key, newValue) => {
