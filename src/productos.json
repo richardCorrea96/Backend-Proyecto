@@ -1,37 +1,57 @@
 [
 	{
-		"title": "product1",
+		"title": "prod1",
 		"description": "desc1",
-		"thumbnail": "tn1",
-		"price": 28,
-		"code": 5460,
-		"stock": 545,
+		"price": 555,
+		"thumbnails": "https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+		"category": "cat1",
+		"code": "1",
+		"stock": 555,
+		"status": true,
 		"id": 1
 	},
 	{
-		"title": "product2",
+		"title": "prod2",
 		"description": "desc2",
-		"thumbnail": "tn2",
-		"price": 28,
-		"code": 5460,
-		"stock": 545,
+		"price": 555,
+		"thumbnails": "https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+		"category": "cat2",
+		"code": "2",
+		"stock": 555,
+		"status": true,
 		"id": 2
 	},
 	{
-		"title": "product3",
+		"title": "prod3",
 		"description": "desc3",
-		"thumbnail": "tn3",
-		"price": 28,
-		"code": 5460,
-		"stock": 545,
+		"price": 555,
+		"thumbnails": "https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+		"category": "cat3",
+		"code": "3",
+		"stock": 555,
+		"status": true,
 		"id": 3
-	},	{
-		"title": "product4",
+	},
+	{
+		"title": "prod4",
 		"description": "desc4",
-		"thumbnail": "tn4",
-		"price": 28,
-		"code": 5460,
-		"stock": 545,
+		"price": 555,
+		"thumbnails": "https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+		"category": "cat4",
+		"code": "4",
+		"stock": 555,
+		"status": true,
 		"id": 4
+	},
+	{
+		"title": "prod5",
+		"description": "desc5",
+		"price": 555,
+		"thumbnails": "https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+		"category": "cat5",
+		"code": "5",
+		"stock": 555,
+		"status": true,
+		"id": 5
 	}
 ]

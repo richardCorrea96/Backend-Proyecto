@@ -21,23 +21,14 @@ export default class ProductManager {
                 console.log(error);
             }
     }
-    getProductById = async(id) => {
-        const data = await fs.promises.readFile(this.path, 'utf-8');
-        const products = JSON.parse(data);
-        const productById = products.find(p => p.id === id);
-        if (productById){
-            return productById
-        }else{
-            return '-Not Found'
-        }
-    }
+
     addProduct = async(product) => {
         try {
             //validar que todos los campos obligatorios esten en el producto
             if (!product.hasOwnProperty("title") ||
             !product.hasOwnProperty("description") ||
             !product.hasOwnProperty("price") ||
-            !product.hasOwnProperty("thumbnail") ||
+            !product.hasOwnProperty("category") ||
             !product.hasOwnProperty("code") ||
             !product.hasOwnProperty("stock")) {
             throw new Error("Missing mandatory fields");
@@ -48,6 +39,7 @@ export default class ProductManager {
             if (existingProduct) {
             throw new Error("Code already exists");
             }
+            product.status = true
             if (products.length === 0) {
             product.id = 1;
             } else {
@@ -68,6 +60,17 @@ export default class ProductManager {
         const newProducts = products.filter(obj => obj.id !== id)
         await fs.promises.writeFile(this.path, JSON.stringify(newProducts, null, '\t'))
         return newProducts
+    }
+
+    getProductById = async(id) => {
+        const data = await fs.promises.readFile(this.path, 'utf-8');
+        const products = JSON.parse(data);
+        const productById = products.find(p => p.id === id);
+        if (productById){
+            return productById
+        }else{
+            return '-Not Found'
+        }
     }
     updateProduct = async (id, key, newValue) => {
         try {
