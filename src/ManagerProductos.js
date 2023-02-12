@@ -1,7 +1,6 @@
 import fs from 'fs';
 
 const path = './productos.json'
-
 export default class ProductManager {
 
     constructor() {
@@ -39,6 +38,11 @@ export default class ProductManager {
             if (existingProduct) {
             throw new Error("Code already exists");
             }
+
+            product.thumbnails = Array.isArray(product.thumbnails) ?
+            [...product.thumbnails] : product.thumbnails 
+            ? [product.thumbnails] : [];
+
             product.status = true
             if (products.length === 0) {
             product.id = 1;

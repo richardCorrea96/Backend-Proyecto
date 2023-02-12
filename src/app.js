@@ -10,4 +10,15 @@ app.use('/api/products', productsRouter);
 
 // app.use('/static', express.static(`${__dirname}/public`));
 
+
+//Cuando agrego un producto,
+//sí desde POSTMAN no envio el parametro thumbnails
+//por default: product.thumbnails = []
+
+//Sí desde POSTMAN le envio un thumbnail
+//quedaria: product.thumbnails = [thumbnail]
+
+//si desde POSTMAN envio un arreglo con varios thumbnails:
+//quedaria: product.thumbnails = [...thumbnails]
+
 app.listen(8080,()=>console.log("Listening on 8080"))
