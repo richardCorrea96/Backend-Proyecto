@@ -25,29 +25,28 @@ export default class ProductManager {
         try {
             //validar que todos los campos obligatorios esten en el producto
             if (!product.hasOwnProperty("title") ||
-            !product.hasOwnProperty("description") ||
-            !product.hasOwnProperty("price") ||
-            !product.hasOwnProperty("category") ||
-            !product.hasOwnProperty("code") ||
-            !product.hasOwnProperty("stock")) {
-            throw new Error("Missing mandatory fields");
-            }
+                !product.hasOwnProperty("description") ||
+                !product.hasOwnProperty("price") ||
+                !product.hasOwnProperty("category") ||
+                !product.hasOwnProperty("code") ||
+                !product.hasOwnProperty("stock")) {
+                    throw new Error("Missing mandatory fields");}
             const products = await this.getProducts();
             // Comprobar si el código ya existe en el arreglo
             const existingProduct = products.find(p => p.code === product.code);
             if (existingProduct) {
-            throw new Error("Code already exists");
+                throw new Error("Code already exists");
             }
 
             product.thumbnails = Array.isArray(product.thumbnails) ?
-            [...product.thumbnails] : product.thumbnails 
-            ? [product.thumbnails] : [];
+                [...product.thumbnails] : product.thumbnails ? 
+                [product.thumbnails] : [];
 
             product.status = true
             if (products.length === 0) {
-            product.id = 1;
+                product.id = 1;
             } else {
-            product.id = products[products.length -1].id + 1;
+                product.id = products[products.length -1].id + 1;
             }
             products.push(product);
             await fs.promises.writeFile(this.path, JSON.stringify(products, null, '\t'));
