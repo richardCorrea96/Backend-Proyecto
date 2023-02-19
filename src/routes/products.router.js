@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ProductManager from '../ManagerProductos.js';
+import ProductManager from '../managers/ManagerProductos.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 

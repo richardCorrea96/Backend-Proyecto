@@ -1,0 +1,86 @@
+[
+	{
+		"title": "Lapiz",
+		"description": "jijiji",
+		"price": 555,
+		"category": "c5",
+		"thumbnails": [
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg"
+		],
+		"code": "a",
+		"stock": 555,
+		"id": 2,
+		"status": true
+	},
+	{
+		"title": "Goma",
+		"description": "d5",
+		"price": 555,
+		"category": "c5",
+		"thumbnails": [
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg"
+		],
+		"code": "aa",
+		"stock": 555,
+		"id": 3,
+		"status": true
+	},
+	{
+		"title": "Sacapuntas",
+		"description": "d5",
+		"price": 555,
+		"category": "c5",
+		"thumbnails": [
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg"
+		],
+		"code": "aaa",
+		"stock": 555,
+		"id": 4,
+		"status": true
+	},
+	{
+		"title": "Compas",
+		"description": "d5",
+		"price": 555,
+		"category": "c5",
+		"thumbnails": [
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg"
+		],
+		"code": "aaaa",
+		"stock": 555,
+		"id": 5,
+		"status": true
+	},
+	{
+		"title": "Regla",
+		"description": "d5",
+		"price": 555,
+		"category": "c5",
+		"thumbnails": [
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg"
+		],
+		"code": "aaaaa",
+		"stock": 555,
+		"id": 6,
+		"status": true
+	},
+	{
+		"title": "Cartuchera",
+		"description": "d5",
+		"price": 555,
+		"category": "c5",
+		"thumbnails": [
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg",
+			"https://detallesorballo.com/wp-content/uploads/2020/09/imagen-de-prueba-320x240-1.jpg"
+		],
+		"code": "aaaabb",
+		"stock": 555,
+		"id": 7,
+		"status": true
+	}
+]

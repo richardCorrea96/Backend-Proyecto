@@ -1,6 +1,7 @@
 import fs from 'fs';
+import __dirname from '../util.js';
+const path = `${__dirname}/json/productos.json`
 
-const path = './productos.json'
 export default class ProductManager {
 
     constructor() {

@@ -1,7 +1,7 @@
 import fs from 'fs';
-
-const path = './carts.json'
-const productsPath = './productos.json'
+import __dirname from '../util.js';
+const path = `${__dirname}/json/carts.json`
+const productsPath = `${__dirname}/json/productos.json`
 
 
 export default class CartManager {
