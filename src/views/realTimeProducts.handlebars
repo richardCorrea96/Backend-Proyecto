@@ -1,12 +1,24 @@
-<div>
-    <h2> Added products (websockets): </h2>
-  {{#each products}}
-  <ul>
-    <li>
+{{!-- <div>
+  <h2> Added products (websockets): </h2>
+  <ul id="productList">
+    {{#each products}}
+      <li>
         <p>{{this.title}}</p>
-    </li>
+      </li>
+    {{/each}}
   </ul>
-  {{/each}}
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script> --}}
+<div>
+  <h2> Added products (websockets): </h2>
+  <ul id="productList">
+    {{#each products}}
+      <li>
+        <p>{{this.title}}</p>
+      </li>
+    {{/each}}
+  </ul>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
