@@ -1,0 +1,13 @@
+<div>
+    <h2> Added products (websockets): </h2>
+  {{#each products}}
+  <ul>
+    <li>
+        <p>{{this.title}}</p>
+    </li>
+  </ul>
+  {{/each}}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
