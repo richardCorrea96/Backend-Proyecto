@@ -31,10 +31,23 @@ const server = app.listen(8080, () => console.log('Listening'));
 
 const io = new Server(server);
 
-const products = await productManager.getProducts();
-
-io.on('connection', socket => {
+io.on('connection',async (socket) => {
     console.log('Connected');
-    socket.on('arregloDeObjetos', products);
+    try {
+        const products = await productManager.getProducts();
+        // Envía los productos al cliente al conectarse
+        socket.emit('arregloDeObjetos', products);
+    } catch (error) {
+        console.error(`Error al obtener los productos: ${error}`);
+    }
 
-})
+    // Maneja el evento para recibir cambios en los productos
+    socket.on('actualizarProductos', async () => {
+        try {
+            const newProducts = await productManager.getProducts();
+            io.emit('arregloDeObjetos', newProducts);
+        } catch (error) {
+            console.error(`Error al obtener los productos: ${error}`);
+        }
+    });
+});
